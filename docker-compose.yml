@@ -1,23 +1,12 @@
 services:
   portainer:
     image: portainer/portainer-ce:latest
-<<<<<<< HEAD
     ports:
       - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
       
-=======
-    container_name: portainer
-    restart: always
-    ports:
-      - "9000:9000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-
->>>>>>> c0c2158 (first commit)
   target_db:
     image: postgres:12
     environment:
@@ -26,17 +15,10 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5433:5432
-<<<<<<< HEAD
     depends_on:
       - portainer
     volumes:
       - target_db_data:/var/lib/postgresql/data
-=======
-    volumes:
-      - target_db_data:/var/lib/postgresql/data
-    depends_on:
-      - portainer
->>>>>>> c0c2158 (first commit)
 volumes:
   portainer_data:
   target_db_data:
