@@ -1,0 +1,24 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+      
+  target_db:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: target_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5433:5432
+    depends_on:
+      - portainer
+    volumes:
+      - target_db_data:/var/lib/postgresql/data
+volumes:
+  portainer_data:
+  target_db_data:
