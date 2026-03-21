@@ -1,6 +1,7 @@
 import os
 import json
 import csv
+import shutil
 from pathlib import Path
 
 RAW_DIR = Path("../data_raw")              # Pasta com JSONs
@@ -35,8 +36,8 @@ def main():
         convert_json_to_csv(file, output_file)
     for file in RAW_DIR.glob("*.csv"):
         output_file = SEEDS_DIR / file.name
-        os.replace(file, output_file)
-        print(f"✔ Movido: arquivos csv {file.name} → {output_file.name}")
+        shutil.copy(file, output_file)
+        print(f"✔ Movido:Copia do arquivos csv {file.name} → {output_file.name}")
 
 
     print("\n🎉 Conversão e atualizacção de dados concluída! Agora rode:")
