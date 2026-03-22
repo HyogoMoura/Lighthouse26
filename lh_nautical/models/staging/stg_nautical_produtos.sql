@@ -5,27 +5,36 @@ with source_produtos AS (
 
 , renamed AS (
     select
-    cast(code as bigint) AS client_pk,
-    cast(email as text) AS client_email,
-    cast(full_name as text) AS client_name,
-    cast(location as text) AS client_location
+    cast(code as bigint) AS product_pk,
+    cast(name as text) AS product_name,
+    cast(actual_category as text) AS product_category,
+    price AS product_price
     from source_produtos
 )
 
 , fromatted AS (
     SELECT
-    client_pk,
-    REPLACE(client_email,'#', '@') AS client_email,
-    UPPER(client_name) AS client_name,
-    
-    CASE
-        WHEN client_location ~ '^[A-Z]{2}' 
-            THEN TRIM(regexp_replace(client_location, '^([A-Z]{2}).*', '\1'))
-        ELSE
-            TRIM(regexp_replace(client_location, '.*([A-Z]{2})$', '\1'))
-    END AS client_estado,
-    TRIM(regexp_replace(client_location, '(^[A-Z]{2}\W*|\W*[A-Z]{2}$)', '')) AS client_cidade
+    product_pk,
+    upper(product_name) AS product_name,
+    upper(unaccent(regexp_replace(product_category,'[^a-zA-Z]+', '', 'g'))) AS product_category,
+    replace(regexp_replace(product_price, '[^0-9\,\.]', '', 'g'), ',', '.')::numeric(12,2) AS product_price
     FROM renamed
 )
 
-SELECT * FROM fromatted
+, standardized AS (
+    SELECT
+    product_pk,
+    product_name,
+    CASE
+        WHEN product_category LIKE '%ELE%' THEN 'ELETRONICOS'
+        WHEN product_category LIKE '%PROP%' THEN 'PROPULSAO'
+        WHEN product_category LIKE  '%ANC%' 
+        OR product_category LIKE '%ENC%' 
+        THEN 'ANCORAGEM'
+        ELSE 'OUTROS'
+    END AS product_category,
+    product_price
+    FROM fromatted
+)
+
+SELECT * FROM standardized

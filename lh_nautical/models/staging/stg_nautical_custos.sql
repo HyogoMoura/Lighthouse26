@@ -15,9 +15,8 @@ with source_custos AS (
 , formatted AS (
     SELECT
     product_pk,
-    upper(product_category) AS product_category,
-    upper(product_name) AS product_name,
-    
+    upper(product_name) AS product_cost_name,
+    upper(unaccent(product_category)) AS product_cost_category,
     jsonb_array_elements(
         replace(historic_data, '''', '"')::jsonb
     ) AS json_element
@@ -28,11 +27,10 @@ with source_custos AS (
 , normalized AS (
     SELECT
     product_pk,
-    product_category,
-    product_name,
-    (json_element ->> 'start_date')::date AS start_date,
+    product_cost_name,
+    product_cost_category,
+    to_date(json_element ->> 'start_date','DD/MM/YYYY') AS start_date,
     (json_element ->> 'usd_price')::numeric AS usd_price
-
     FROM formatted
 )
 

@@ -5,27 +5,35 @@ with source_vendas AS (
 
 , renamed AS (
     select
-    cast(code as bigint) AS client_pk,
-    cast(email as text) AS client_email,
-    cast(full_name as text) AS client_name,
-    cast(location as text) AS client_location
-    from source_clientes
+    cast(id as bigint) AS ven_pk,
+    cast(id_client as bigint) AS client_fk,
+    cast(id_product as bigint) AS product_fk,
+    cast(qtd as numeric(20,1)) AS quant_vend,
+    cast(total as numeric(30,2)) AS total_vend,
+    sale_date AS date_vend_raw
+    from source_vendas
 )
 
-, fromatted AS (
-    SELECT
-    client_pk,
-    REPLACE(client_email,'#', '@') AS client_email,
-    UPPER(client_name) AS client_name,
-    
+, formatted AS (
+    select
+    ven_pk,
+    client_fk,
+    product_fk,
+    quant_vend,
+    total_vend,
     CASE
-        WHEN client_location ~ '^[A-Z]{2}' 
-            THEN TRIM(regexp_replace(client_location, '^([A-Z]{2}).*', '\1'))
-        ELSE
-            TRIM(regexp_replace(client_location, '.*([A-Z]{2})$', '\1'))
-    END AS client_estado,
-    TRIM(regexp_replace(client_location, '(^[A-Z]{2}\W*|\W*[A-Z]{2}$)', '')) AS client_cidade
+        WHEN date_vend_raw ~ '^\d{4}-\d{2}-\d{2}$'
+            THEN date_vend_raw::date
+        WHEN date_vend_raw ~ '^\d{2}-\d{2}-\d{4}$'
+            THEN to_date(date_vend_raw, 'DD-MM-YYYY')
+        ELSE NULL
+    END AS data_vend
     FROM renamed
 )
 
-SELECT * FROM fromatted
+, removenull AS (
+    select *
+    from formatted
+    where ven_pk IS NOT NULL
+)
+SELECT * FROM removenull
