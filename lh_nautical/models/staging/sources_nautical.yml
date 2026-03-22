@@ -1,0 +1,56 @@
+version: 2
+
+sources:
+  - name: nautical
+    database: target_db
+    schema: public
+    description: "Tabela de fontes de dados do projeto Lighthouse Nautical"
+
+    tables:
+      - name: clientes_crm
+        description: "Tabela de clientes"
+        columns:
+          - name: code
+            description: "Código do cliente"
+            tests:
+              - not_null
+              - unique
+
+
+     
+      - name: custos_importacao
+        description: "Tabela de custos de importação"
+        columns:
+          - name: product_id
+            description: "ID do produto na tabela custo"
+            tests:
+              - not_null
+              - unique
+
+      - name: produtos_raw
+        description: "Tabela de produtos"
+        columns:
+          - name: code
+            description: "ID do produto"
+            tests:
+              - not_null
+              - unique     
+
+      - name: vendas_2023_2024
+        description: "Tabela de vendas dos anos de 2023 e 2024"
+        columns:
+          - name: id
+            description: "ID da venda"
+            tests:
+              - not_null
+              - unique 
+          - name: id_client
+            description: "ID do cliente na tabela vendas"
+            tests:
+              - not_null
+              - unique 
+          - name: id_product
+            description: "ID do produto na tabela vendas"
+            tests:
+              - not_null
+              - unique 
