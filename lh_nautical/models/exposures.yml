@@ -1,0 +1,36 @@
+version: 2
+
+exposures:
+  - name: dashboard_vendas_e_margem
+    label: Dashboard de Vendas e Margem
+    type: dashboard
+    maturity: medium
+    description: >
+      Dashboard utilizado pela diretoria da LH Nautical
+      para acompanhamento de faturamento, margem por produto
+      e desempenho de vendas ao longo do tempo.
+
+    depends_on:
+      - ref('fct_vendas')
+      - ref('fct_vendas_margem')
+      - ref('dim_datas')
+      - ref('dim_produtos')
+
+    owner:
+      name: Marina Costa
+      email: marina.costa@lhnautical.com
+
+  - name: previsao_demanda
+    type: ml
+    maturity: low
+    description: >
+      Modelo de previsão de demanda utilizado para estimar
+      vendas futuras e apoiar planejamento de estoque.
+
+    depends_on:
+      - ref('fct_vendas')
+      - ref('dim_datas')
+
+    owner:
+      name: Gabriel Santos
+      email: gabriel.santos@lhnautical.com

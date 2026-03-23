@@ -1,6 +1,6 @@
 
 select distinct
-    product_pk,
+    CAST(product_pk AS TEXT) as product_pk,
     product_name,
     product_category,
     product_price

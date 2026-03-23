@@ -1,5 +1,5 @@
 select distinct
-    client_pk,
+    CAST(client_pk AS TEXT) as client_pk,
     client_email,
     client_name,
     client_estado,

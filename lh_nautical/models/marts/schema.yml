@@ -115,7 +115,9 @@ models:
         description: Custo unitário do produto no momento da venda.
       - name: custo_total
         description: Custo total da venda (quantidade * custo unitário).
-      - name: lucro_estimado
+      - name: custo_total_brl
+        description: Custo total da venda em BRL (quantidade * custo unitário em BRL).
+      - name: lucro_estimado_brl
         description: Lucro estimado da venda (valor total - custo total).
 
 
@@ -151,8 +153,14 @@ models:
         description: Valor total da venda.
       - name: product_cost_usd    
         description: Custo unitário do produto no momento da venda. 
-      - name: custo_total
+      - name: product_cost_brl
+        description: Custo unitário do produto convertido para BRL utilizando a taxa média anual de 2023 e 2024.
+      - name: custo_total_usd
         description: Custo total da venda (quantidade * custo unitário).
-      - name: lucro_estimado
-        description: Lucro estimado da venda (valor total - custo total).
+      - name: custo_total_brl
+        description: Custo total da venda em BRL (quantidade * custo unitário em BRL).
+      - name: lucro_estimado_usd
+        description: Lucro estimado da venda em USD (valor total convertido para USD - custo total em USD).
+      - name: lucro_estimado_brl
+        description: Lucro estimado da venda em BRL (valor total - custo total em BRL).
 

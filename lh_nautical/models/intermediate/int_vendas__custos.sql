@@ -13,6 +13,7 @@ with vendas_join as (
         v.quant_vend,
         v.total_vend,
         c.product_cost_usd,
+        c.product_cost_brl,
         c.cost_start_date,
 
         row_number() over (
@@ -32,6 +33,7 @@ select
     product_pk,
     quant_vend,
     total_vend,
-    product_cost_usd
+    product_cost_usd,
+    product_cost_brl
 from custos_ranked
 where rn = 1
