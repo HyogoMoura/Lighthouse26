@@ -11,6 +11,7 @@ select
     CAST(v.ven_pk AS TEXT) as venda_id,
     v.data_vend,
     CAST(v.product_pk AS TEXT) as product_id,
+    v.product_name,
     v.quant_vend,
     v.total_vend_usd,
     c.avg_cost as avg_product_cost_usd, 

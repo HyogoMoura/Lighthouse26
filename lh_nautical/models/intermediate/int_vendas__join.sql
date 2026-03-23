@@ -17,6 +17,7 @@ select
     c.client_pk,
     c.client_estado,
     c.client_cidade,
+    c.client_name,
 
     p.product_pk,
     p.product_name,

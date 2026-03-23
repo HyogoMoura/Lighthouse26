@@ -153,7 +153,7 @@ models:
       - name: avg_product_cost_usd    
         description: Custo unitário médio do produto no momento da venda, considerando a média dos custos dos produtos vendidos naquele dia.
       - name: custo_total_usd
-        description: Custo total da venda em BRL (quantidade * custo unitário em usd).
+        description: Custo total da venda em USD (quantidade * custo unitário em usd).
       - name: lucro_estimado_usd
         description: Lucro estimado da venda em USD (valor total convertido para USD - custo total em USD).
 
