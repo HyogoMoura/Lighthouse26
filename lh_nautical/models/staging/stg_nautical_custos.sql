@@ -35,3 +35,4 @@ with source_custos AS (
 )
 
 SELECT * FROM normalized
+--where start_date between '01-01-2023' and '01-01-2025'

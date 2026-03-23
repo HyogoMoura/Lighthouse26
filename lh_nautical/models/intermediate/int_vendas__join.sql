@@ -12,7 +12,7 @@ select
     v.ven_pk,
     v.data_vend,
     v.quant_vend,
-    v.total_vend,
+--    v.total_vend, --valo errado
 
     c.client_pk,
     c.client_estado,
@@ -21,7 +21,7 @@ select
     p.product_pk,
     p.product_name,
     p.product_category,
-    p.product_price
+    round(v.quant_vend*(p.product_price/4.97), 2) as total_vend_usd
 
 from vendas AS v
 left join clientes AS  c

@@ -11,9 +11,8 @@ with vendas_join as (
         v.data_vend,
         v.product_pk,
         v.quant_vend,
-        v.total_vend,
+        v.total_vend_usd,
         c.product_cost_usd,
-        c.product_cost_brl,
         c.cost_start_date,
 
         row_number() over (
@@ -32,8 +31,7 @@ select
     data_vend,
     product_pk,
     quant_vend,
-    total_vend,
-    product_cost_usd,
-    product_cost_brl
+    total_vend_usd,
+    product_cost_usd
 from custos_ranked
 where rn = 1
