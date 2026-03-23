@@ -44,7 +44,7 @@ models:
         description: Preço unitário do produto.
 
 
-  - name: dim_data
+  - name: dim_datas
     description: >
       Dimensão de datas utilizada para análises temporais e sazonalidade.
 
@@ -88,22 +88,25 @@ models:
         description: Data da venda.
         tests:
           - relationships:
-              to: ref('dim_data')
-              field: date_day
+              arguments:
+                to: ref('dim_datas')
+                field: date_day
 
       - name: client_id
         description: Identificador do cliente.
         tests:
           - relationships:
-              to: ref('dim_clientes')
-              field: client_pk
+              arguments:
+                to: ref('dim_clientes')
+                field: client_pk
 
       - name: product_id
         description: Identificador do produto vendido.
         tests:
           - relationships:
-              to: ref('dim_produtos')
-              field: product_pk
+              arguments:
+                to: ref('dim_produtos')
+                field: product_pk
       - name: quant_vend
         description: Quantidade do produto vendida.
       - name: total_vend
@@ -131,15 +134,17 @@ models:
         description: Data da venda.
         tests:
           - relationships:
-              to: ref('dim_data')
-              field: date_day
+              arguments:
+                to: ref('dim_datas')
+                field: date_day
 
       - name: product_id
         description: Identificador do produto vendido.
         tests:
             - relationships:
-                to: ref('dim_produtos')
-                field: product_pk
+                arguments:
+                  to: ref('dim_produtos')
+                  field: product_pk
       - name: quant_vend
         description: Quantidade do produto vendida.
       - name: total_vend
