@@ -4,15 +4,14 @@ with vendas_join as (
 ,custos_join as (
     select * from {{ ref('int_custos__join') }}
 )
+
 ,custos_ranked as (
     select
         v.ven_pk,
         v.data_vend,
-        v.client_pk,
         v.product_pk,
         v.quant_vend,
         v.total_vend,
-
         c.product_cost_usd,
         c.cost_start_date,
 
@@ -30,7 +29,6 @@ with vendas_join as (
 select
     ven_pk,
     data_vend,
-    client_pk,
     product_pk,
     quant_vend,
     total_vend,

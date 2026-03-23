@@ -1,0 +1,120 @@
+version: 2
+
+models:
+
+  - name: dim_clientes
+    description: >
+      Dimensão de clientes da LH Nautical.
+      Contém informações cadastrais e geográficas dos clientes.
+
+    columns:
+      - name: client_pk
+        description: Identificador único do cliente.
+        tests:
+          - unique
+          - not_null
+
+      - name: client_email
+        description: Email do cliente.
+
+      - name: client_estado
+        description: Estado de residência do cliente.
+
+      - name: client_cidade
+        description: Cidade de residência do cliente.
+
+
+  - name: dim_produtos
+    description: >
+      Dimensão de produtos comercializados pela LH Nautical.
+
+    columns:
+      - name: product_pk
+        description: Identificador único do produto.
+        tests:
+          - unique
+          - not_null
+      - name: product_name
+        description: Nome do produto.
+
+      - name: product_category
+        description: Categoria padronizada do produto.
+
+      - name: product_price
+        description: Preço unitário do produto.
+
+
+  - name: dim_data
+    description: >
+      Dimensão de datas utilizada para análises temporais e sazonalidade.
+
+    columns:
+      - name: date_day
+        description: Data no nível de dia.
+        tests:
+          - unique
+          - not_null
+
+      - name: day_of_week_name
+        description: Nome do dia da semana.
+
+      - name: is_weekend
+        description: Indica se a data é final de semana.
+
+
+  #============================ FATOS==========================================
+
+  - name: fct_vendas
+    description: >
+      Tabela fato de vendas.
+      Representa a venda de um produto para um cliente em uma data específica.
+
+    columns:
+      - name: ven_id
+        description: Identificador único da venda.
+        tests:
+          - unique
+          - not_null
+
+      - name: data_vend
+        description: Data da venda.
+      - name: product_id
+        description: Identificador do produto vendido.
+      - name: quant_vend
+        description: Quantidade do produto vendida.
+      - name: total_vend
+        description: Valor total da venda.
+      - name: product_cost_usd
+        description: Custo unitário do produto no momento da venda.
+      - name: custo_total
+        description: Custo total da venda (quantidade * custo unitário).
+      - name: lucro_estimado
+        description: Lucro estimado da venda (valor total - custo total).
+
+
+  - name: fct_vendas_margem
+    description:
+      Tabela fato de margem por produto.
+      Calcula custo, receita e lucro estimado considerando o custo vigente no momento da venda.
+
+    columns:
+      - name: venda_id
+        description: Identificador único da venda.
+        tests:
+          - unique
+          - not_null
+      - name: data_vend
+        description: Data da venda.
+      - name: product_id
+        description: Identificador do produto vendido.
+      - name: quant_vend
+        description: Quantidade do produto vendida.
+      - name: total_vend
+        description: Valor total da venda.
+      - name: product_cost_usd    
+        description: Custo unitário do produto no momento da venda. 
+      - name: custo_total
+        description: Custo total da venda (quantidade * custo unitário).
+      - name: lucro_estimado
+        description: Lucro estimado da venda (valor total - custo total).
+
