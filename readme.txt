@@ -1,4 +1,4 @@
-## Lighthouse26 - Pipeline Analítico com DBT para Dados da IL Nautical
+##Lighthouse26 - Pipeline Analítico com DBT para Dados da IL Nautical
 
 ### Visão Geral
 Este projeto tem como objetivo a construção de uma solução analítica utilizando DBT (Data Build Tool) para transformação, modelagem e documentação dos dados da IL Nautical.
